@@ -1,17 +1,18 @@
-import { Controller } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Book } from './Schemas/book.schema';
+import { BookService } from './book.service';
 
-@Controller('book')
+@Controller('books')
 export class BookController {
-    constructor(
-        @InjectModel(Book.name)
-        private bookModel : mongoose.Model<Book>
-    ){}
+    constructor(private bookservice:BookService){}
 
-    async findAll() :Promise<Book[]>{
-        const books = await this.bookModel.find()
-        return books
+    @Get()
+    async getAllBooks():Promise<Book[]>{
+       return this.bookservice.findAll()
+    }
+
+    @Post()
+    async createBook(@Body()book):Promise<Book>{
+        return this.bookservice.create(book)
     }
 }
