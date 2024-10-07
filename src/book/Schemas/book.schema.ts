@@ -8,7 +8,6 @@ export enum Cotegory{
 
 }
 
-
 @Schema({
     timestamps: true
 })
@@ -19,7 +18,7 @@ export class Book{
     @Prop()
     description:string;
     @Prop()
-    aurhor:string;
+    author:string;
     @Prop()
     price:number;
     @Prop()
